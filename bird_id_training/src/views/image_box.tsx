@@ -1,7 +1,6 @@
-import { Box } from '@mui/material'
 import { Tilt } from 'react-tilt'
-import { ImageAndTextData } from '../controllers/answer_box_controller'
-import { useState } from 'react'
+import { Box, IconButton, Typography } from '@mui/material'
+import KeyboardDoubleArrowRightIcon from '@mui/icons-material/KeyboardDoubleArrowRight';
 
 const defaultOptions = {
     reverse: false,  // reverse the tilt direction
@@ -28,28 +27,38 @@ const defaultOptions = {
  * React component for displaying image
  * @returns ReactElement
  */
-function Image_Box() {
+function Image_Box({ isCorrect, birdIdObject, handleNextBird, showAnswer, setShowAnswer, disable, setDisable, error, setError }) {
 
-    const [images, setImages] = useState([])
-    ImageAndTextData()
-        .then(filtered_array => setImages(filtered_array))
-        .catch(error => console.log(error));
+    //On image click shows the right answer
+    const handleImageClick = () => {
+        // When the answer is already correct clicking the image no longer does anything
+        if (!isCorrect) {
+            setShowAnswer(birdIdObject.labels)
+            setError(true)
+            setDisable(true)
+        }
+    }
 
     return (
-        (
-            images.slice(1, 2).map(image => {
-                return (
-                    <Tilt options={defaultOptions}>
-                        <Box
-                            component="img"
-                            sx={{ borderRadius: '25px', boxShadow: '1px 10px 20px black', width: '25vw', height: '40vh', margin: '30px', minWidth: '350px', minHeight: '300px' }}
-                            alt={image.labels}
-                            src={`./archive/${image.filepaths}`}
-                        />
-                    </Tilt>
-                )
-            })
-        )
+        <Tilt options={defaultOptions}>
+            <div style={{ display: 'flex', flexDirection: 'row', justifyContent: 'center', alignItems: 'center' }}>
+                <Typography sx={{ marginTop: '5px' }}>
+                    {showAnswer}
+                </Typography>
+                {showAnswer ?
+                    <IconButton>
+                        <KeyboardDoubleArrowRightIcon onClick={handleNextBird} sx={{ color: 'white' }} />
+                    </IconButton>
+                    : ""}
+            </div>
+            <Box
+                component="img"
+                sx={{ borderRadius: '25px', boxShadow: '1px 10px 20px black', width: '25vw', height: '40vh', margin: '30px', minWidth: '350px', minHeight: '300px' }}
+                alt={birdIdObject.labels}
+                src={`./archive/${birdIdObject.filepaths}`}
+                onClick={handleImageClick}
+            />
+        </Tilt>
     )
 }
 
