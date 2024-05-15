@@ -39,6 +39,7 @@ function Image_Box({ isCorrect, birdIdObject, handleNextBird, showAnswer, setSho
         }
     }
 
+
     return (
         <Tilt options={defaultOptions}>
             <div style={{ display: 'flex', flexDirection: 'row', justifyContent: 'center', alignItems: 'center' }}>

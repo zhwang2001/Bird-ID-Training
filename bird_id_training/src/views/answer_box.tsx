@@ -1,5 +1,4 @@
-import { Box, TextField, IconButton } from '@mui/material/';
-import KeyboardDoubleArrowRightIcon from '@mui/icons-material/KeyboardDoubleArrowRight';
+import { Box, TextField } from '@mui/material/';
 
 /**
  * React component for inputing answers
@@ -68,7 +67,7 @@ function Answer_Box({ birdIdObject, isCorrect, setIsCorrect, answer, setAnswer, 
                 value={answer}
                 error={error}
                 sx={{
-                    input: { color: isCorrect ? 'green' : 'white' },
+                    input: { color: isCorrect ? 'green' : (error ? 'red' : 'white') },
                     '& label.Mui-focused': { color: isCorrect ? 'green' : (error ? 'red' : 'white') },
                     '& .MuiInput-underline:before': { borderBottomColor: isCorrect ? 'green' : (error ? 'red' : 'grey') },
                     '& .MuiInput-underline:after': { borderBottomColor: isCorrect ? 'green' : (error ? 'red' : 'white') },

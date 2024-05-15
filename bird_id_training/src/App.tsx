@@ -37,10 +37,10 @@ function App() {
   }
 
   useEffect(() => {
+    //Randomly select a bird from the condensed array of birds
     ImageAndTextData()
       .then(full_array => {
         const randomNumber = Math.floor(Math.random() * full_array?.length + 1)
-        console.log(randomNumber)
         const IdObject = full_array[randomNumber]
         setBirdIdObject(IdObject)
       })
