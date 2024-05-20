@@ -1,4 +1,4 @@
-import ExtractData from "../models/bird_data"
+import ExtractData from "../models/Extract_Stored_Data.tsx"
 
 /**
  * Fetches bird data from csv file, can select a subset of birds to be tested on

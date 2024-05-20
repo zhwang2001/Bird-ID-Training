@@ -1,10 +1,13 @@
 import { Box, TextField } from '@mui/material/';
 
 /**
- * React component for inputing answers
+ * React component for inputting answers
  * @returns ReactElement
  */
-function Answer_Box({ birdIdObject, isCorrect, setIsCorrect, answer, setAnswer, error, setError, disable, setDisable, showAnswer, setShowAnswer }) {
+export default function InputBox({  birdIdObject, isCorrect, setIsCorrect,
+                                    answer, setAnswer,
+                                    error, setError,
+                                    showAnswer, setShowAnswer }) {
 
 
     const classes = {
@@ -20,7 +23,6 @@ function Answer_Box({ birdIdObject, isCorrect, setIsCorrect, answer, setAnswer, 
     const handleInputChange = (e: React.ChangeEvent<HTMLInputElement>) => {
         const formattedText = e.target.value.toLowerCase()
         setAnswer(formattedText)
-        console.log(answer)
     }
 
     /**
@@ -36,7 +38,7 @@ function Answer_Box({ birdIdObject, isCorrect, setIsCorrect, answer, setAnswer, 
             if (birdIdObject.labels.toLowerCase() === answer) {
                 setError(false)
                 setIsCorrect(true)
-                setShowAnswer(birdIdObject.labels)
+                setShowAnswer(true)
             } else {
                 setError(true)
             }
@@ -57,27 +59,26 @@ function Answer_Box({ birdIdObject, isCorrect, setIsCorrect, answer, setAnswer, 
             autoComplete="off"
             noValidate
         >
-            <TextField
+            {showAnswer ? ""
+            :
+                <TextField
                 id="Answer_Box"
                 label="What's The Bird's Name?"
                 variant="standard"
                 inputProps={{ className: classes.input.color }}
                 onKeyDown={handleKeyPress}
-                disabled={disable}
                 value={answer}
                 error={error}
+                onChange={handleInputChange}
                 sx={{
-                    input: { color: isCorrect ? 'green' : (error ? 'red' : 'white') },
-                    '& label.Mui-focused': { color: isCorrect ? 'green' : (error ? 'red' : 'white') },
+                    input: { color: isCorrect ? 'green' : (error ? 'red' : 'grey') },
+                    '& label.Mui-focused': { color: isCorrect ? 'green' : (error ? 'red' : 'darkgray') },
                     '& .MuiInput-underline:before': { borderBottomColor: isCorrect ? 'green' : (error ? 'red' : 'grey') },
-                    '& .MuiInput-underline:after': { borderBottomColor: isCorrect ? 'green' : (error ? 'red' : 'white') },
+                    '& .MuiInput-underline:after': { borderBottomColor: isCorrect ? 'green' : (error ? 'red' : 'gray') },
                     '& .MuiInputLabel-root': { color: isCorrect ? 'green' : (error ? 'red' : 'grey') }, //Input Text Color
                     // '&:hover': { borderBottom: '1px solid grey' },
                 }}
-                onChange={handleInputChange}
-            />
+            />}
         </Box >
     )
 }
-
-export default Answer_Box

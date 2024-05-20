@@ -1,13 +1,28 @@
 import { useState, useEffect } from 'react'
 import './App.css'
-import Answer_Box from './views/answer_box'
-import Image_Box from './views/image_box'
+import InputBox from './views/input_box.tsx'
+import ImageBox from './views/image_box.tsx'
+import DisplayAnswer from './views/display_answer.tsx'
 import { ImageAndTextData } from './controllers/answer_box_controller'
+import {Tilt} from "react-tilt";
 
 /**
  * App for Bird ID training
  * @returns ReactElement
  */
+
+const defaultOptions = {
+    reverse: false,  // reverse the tilt direction
+    max: 10,     // max tilt rotation (degrees)
+    perspective: 1000,   // Transform perspective, the lower the more extreme the tilt gets.
+    scale: 1.05,    // 2 = 200%, 1.5 = 150%, etc..
+    speed: 1000,   // Speed of the enter/exit transition
+    transition: true,   // Set a transition on enter/exit.
+    axis: null,   // What axis should be disabled. Can be X or Y.
+    reset: true,    // If the tilt effect has to be reset on exit.
+    easing: "cubic-bezier(.03,.98,.52,.99)",    // Easing on enter/exit.
+}
+
 function App() {
   // const [correct_answers, set_correct_answers] = useState(0)
 
@@ -20,10 +35,8 @@ function App() {
   const [answer, setAnswer] = useState('')
   //State management for showing either red or default color
   const [error, setError] = useState(false)
-  //State management for showing the right answer
-  const [showAnswer, setShowAnswer] = useState("")
-  //State management for disabling textfield
-  const [disable, setDisable] = useState(false)
+  //State management for controlling showing the correct answer
+  const [showAnswer, setShowAnswer] = useState(false)
 
 
   const handleNextBird = () => {
@@ -32,7 +45,6 @@ function App() {
     setAnswer("")
     setIsCorrect(false)
     setAnswer("")
-    setDisable(false)
     setError(false)
   }
 
@@ -49,8 +61,23 @@ function App() {
 
   return (
     <div style={{ display: 'flex', justifyContent: 'center', flexDirection: 'column', }}>
-      <Image_Box isCorrect={isCorrect} birdIdObject={birdIdObject} handleNextBird={handleNextBird} showAnswer={showAnswer} setShowAnswer={setShowAnswer} disable={disable} setDisable={setDisable} error={error} setError={setError} />
-      <Answer_Box birdIdObject={birdIdObject} isCorrect={isCorrect} setIsCorrect={setIsCorrect} answer={answer} setAnswer={setAnswer} error={error} setError={setError} disable={disable} setDisable={setDisable} showAnswer={showAnswer} setShowAnswer={setShowAnswer} />
+        <Tilt options={defaultOptions}>
+            <div style={{display: 'flex', alignItems: 'center', flexDirection: 'column'}}>
+            <ImageBox isCorrect={isCorrect} birdIdObject={birdIdObject}
+                      handleNextBird={handleNextBird}
+                      setShowAnswer={setShowAnswer}
+            />
+            {showAnswer
+                ? <DisplayAnswer birdIdObject={birdIdObject} handleNextBird={handleNextBird}/>
+                : ""}
+            </div>
+        </Tilt>
+        <InputBox birdIdObject={birdIdObject}
+                  isCorrect={isCorrect} setIsCorrect={setIsCorrect}
+                  answer={answer} setAnswer={setAnswer}
+                  error={error} setError={setError}
+                  showAnswer={showAnswer} setShowAnswer={setShowAnswer}
+        />
     </div>
   )
 }
