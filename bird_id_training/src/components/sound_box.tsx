@@ -17,7 +17,7 @@ export default function SoundBox({isCorrect, isPlaying, setIsPlaying, birdSound,
     };
 
     useEffect(() => {
-        // Stop audio when the answer is correct or when user moves to next item then stop playing the audio
+        // Stop the audio when answer is correct or when user moves to next item then stop playing the audio
         setIsPlaying(false)
         stop();
         // Cleanup when component unmounts
