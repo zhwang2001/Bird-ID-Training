@@ -8,13 +8,6 @@ import BirdVisualMode from "./views/bird_visual_mode.tsx";
 import BirdAudioMode from "./views/bird_audio_mode.tsx";
 
 //TODO
-/**
- * Percent tracker
- * Notification that the answer is correct or wrong
- * On click display answer
- * Settings for enabling which birds to add to list
- * Backend
- */
 
 /**
  * App for Bird ID training
@@ -42,7 +35,7 @@ function App() {
     //State management for selecting the visual or audio mode
     const [mode, setMode] = useState<string>("")
     //State management for storing a specific row of the CSV file
-    const [birdIdObject, setBirdIdObject] = useState<birdIdObjectType>({})
+    const [birdIdObject, setBirdIdObject] = useState<birdIdObjectType | unknown>({})
     //State management for showing either green or default color, used to move onto next flashcard
     const [isCorrect, setIsCorrect] = useState(false)
     //State management for showing the next bird (rerender useEffect hook)
@@ -54,12 +47,11 @@ function App() {
     //State management for controlling showing the correct answer
     const [showAnswer, setShowAnswer] = useState(false)
     //State management for storing the selected birds
-    const [selectedBirds, setSelectedBirds] = useState([])
+    const [selectedBirds, setSelectedBirds] = useState<string[]>([])
     //State Management for dialog boxes
     const [open, setOpen] = React.useState(false);
 
     const handleNextBird = () => {
-        console.log('reuse')
         setNext(!next)
         setShowAnswer(false)
         setAnswer("")
@@ -73,7 +65,7 @@ function App() {
             .then((fullArray: unknown[] | undefined | birdIdObjectType[]): void => {
                 if (fullArray && fullArray.length > 0) {
                     const randomNumber: number = Math.floor(Math.random() * fullArray?.length)
-                    const IdObject: birdIdObjectType = fullArray[randomNumber]
+                    const IdObject: unknown = fullArray[randomNumber]
                     setBirdIdObject(IdObject)
                 }
             })
