@@ -1,19 +1,6 @@
 import {Box, TextField} from '@mui/material/';
-import {Dispatch, SetStateAction} from 'react';
-import {birdIdObjectType} from "../App.tsx";
+import {InputBoxProps} from "../birdTypes/birdTypes.ts";
 
-
-interface InputBoxProps {
-    birdIdObject: birdIdObjectType
-    isCorrect: boolean
-    setIsCorrect: Dispatch<SetStateAction<boolean>>
-    answer: string
-    setAnswer: Dispatch<SetStateAction<string>>
-    error: boolean
-    setError: Dispatch<SetStateAction<boolean>>
-    showAnswer: boolean
-    setShowAnswer: Dispatch<SetStateAction<boolean>>
-}
 
 /**
  * React component for inputting answers

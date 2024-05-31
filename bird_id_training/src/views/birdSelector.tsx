@@ -4,9 +4,9 @@ import InputLabel from '@mui/material/InputLabel';
 import MenuItem from '@mui/material/MenuItem';
 import FormControl from '@mui/material/FormControl';
 import Select, {SelectChangeEvent} from '@mui/material/Select';
-import {Button, Dialog, DialogTitle, DialogContent, DialogActions, Box, Divider} from "@material-ui/core";
-import {Dispatch, SetStateAction} from "react";
+import {Button, Dialog, DialogTitle, DialogContent, DialogActions, Box} from "@material-ui/core";
 import {Tilt} from 'react-tilt';
+import {birdSelectorProps} from "../birdTypes/birdTypes.ts";
 
 
 const ITEM_HEIGHT = 48;
@@ -20,14 +20,6 @@ const MenuProps = {
     },
 };
 
-type birdNameProps = {
-    birdNames: string[]
-    selectedBirds: string[]
-    setSelectedBirds: Dispatch<SetStateAction<string[]>>
-    open: boolean
-    setOpen: Dispatch<SetStateAction<boolean>>
-    setMode: Dispatch<SetStateAction<string>>
-}
 
 /**
  * Multi select components for selecting the types of birds you want to be tested on
@@ -46,7 +38,7 @@ export default function BirdSelector({
                                          open,
                                          setOpen,
                                          setMode
-                                     }: birdNameProps) {
+                                     }: birdSelectorProps): React.ReactElement {
 
 
     /*** Handles the opening of the dialog box*/
@@ -71,16 +63,18 @@ export default function BirdSelector({
      * @param event
      * @param reason different actions depending on which part of the component is pressed
      */
-    const handleClose = (event: React.SyntheticEvent<unknown>, reason?: 'backdropClick' | 'cancel' | 'confirm') => {
-        if (reason === 'backdropClick') {
-            setSelectedBirds([])
-            setOpen(false);
-        }
-        if (reason === 'cancel') {
-            setSelectedBirds([])
-            setOpen(false)
-        } else if (reason === 'confirm') {
-            setOpen(false)
+    const handleClose = (event: unknown, reason?: 'backdropClick' | 'cancel' | 'confirm') => {
+        if (event) {
+            if (reason === 'backdropClick') {
+                setSelectedBirds([])
+                setOpen(false);
+            }
+            if (reason === 'cancel') {
+                setSelectedBirds([])
+                setOpen(false)
+            } else if (reason === 'confirm') {
+                setOpen(false)
+            }
         }
     };
 
@@ -121,7 +115,7 @@ export default function BirdSelector({
                 </Button>
             </Tilt>
             <Dialog disableEscapeKeyDown disableEnforceFocus open={open}
-                    onClose={(e) => handleClose(e, "backdropClick")}>
+                    onClose={(event) => handleClose(event, "backdropClick")}>
                 <DialogTitle>Select Your Birds</DialogTitle>
                 <DialogContent>
                     <Box component="form" sx={{display: 'flex', flexWrap: 'wrap'}}>

@@ -3,6 +3,7 @@ import ImageBox from "../components/image_box.tsx";
 import DisplayAnswer from "../components/display_answer.tsx";
 import InputBox from "../components/input_box.tsx";
 import * as React from "react";
+import {birdVisualModeProps} from "../birdTypes/birdTypes.ts";
 
 const defaultTiltOptions = {
     reverse: false,  // reverse the tilt direction
@@ -29,6 +30,7 @@ const defaultTiltOptions = {
  * @param handleNextBird
  * @constructor
  */
+
 export default function BirdVisualMode({
                                            isCorrect, setIsCorrect,
                                            birdIdObject,
@@ -36,7 +38,7 @@ export default function BirdVisualMode({
                                            answer, setAnswer,
                                            showAnswer, setShowAnswer,
                                            handleNextBird
-                                       }): React.ReactElement {
+                                       }: birdVisualModeProps): React.ReactElement {
     return (
         <div style={{display: 'flex', justifyContent: 'center', flexDirection: 'column',}}>
             <Tilt options={defaultTiltOptions}>

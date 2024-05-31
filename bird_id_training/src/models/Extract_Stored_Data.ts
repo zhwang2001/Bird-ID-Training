@@ -5,7 +5,7 @@ import Papa from 'papaparse'
  * @param mode Visual or audio mode
  * @constructor
  */
-const ExtractData = async ({mode}: string) => {
+const ExtractData = async ({mode}: {mode: string}) => {
 
     try {
         let response

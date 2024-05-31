@@ -1,10 +1,10 @@
 import {IconButton} from "@mui/material";
-import PropTypes from "prop-types";
 import PlayCircleFilledIcon from '@material-ui/icons/PlayCircleFilled';
 import ReplayIcon from '@material-ui/icons/Replay';
 import {useEffect} from "react";
+import {soundBoxProps} from "../birdTypes/birdTypes.ts";
 
-export default function SoundBox({isCorrect, isPlaying, setIsPlaying, birdSound, stop, next}) {
+export default function SoundBox({isCorrect, isPlaying, setIsPlaying, birdSound, stop, next}: soundBoxProps) {
 
     const handlePlaySound = () => {
         if (isPlaying) {
@@ -34,11 +34,3 @@ export default function SoundBox({isCorrect, isPlaying, setIsPlaying, birdSound,
         </IconButton>
     )
 }
-
-SoundBox.propTypes = {
-    birdIdObject: PropTypes.shape({
-        filepaths: PropTypes.string.isRequired,
-    }).isRequired,
-    isCorrect: PropTypes.bool.isRequired,
-    setShowAnswer: PropTypes.func.isRequired,
-};

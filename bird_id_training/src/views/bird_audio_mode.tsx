@@ -4,13 +4,16 @@ import DisplayAnswer from "../components/display_answer.tsx";
 import InputBox from "../components/input_box.tsx";
 import HelpIcon from '@material-ui/icons/Help';
 import {IconButton} from "@mui/material";
-import {useState, useEffect} from "react";
+import {useState} from "react";
+// @ts-ignore
 import useSound from "use-sound";
+import {birdAudioModeProps} from "../birdTypes/birdTypes.ts";
 
 /**
  * Audio mode component
  * @constructor
  */
+
 export default function BirdAudioMode({
                                           isCorrect, setIsCorrect,
                                           error, setError,
@@ -18,7 +21,7 @@ export default function BirdAudioMode({
                                           answer, setAnswer,
                                           showAnswer, setShowAnswer,
                                           handleNextBird, next
-                                      }): React.ReactElement {
+                                      }: birdAudioModeProps): React.ReactElement {
 
     //tracks if audio is playing
     const [isPlaying, setIsPlaying] = useState(false);
@@ -37,8 +40,7 @@ export default function BirdAudioMode({
     return (
         <div style={{display: 'flex', justifyContent: 'center', flexDirection: 'column',}}>
             <div style={{display: 'flex', alignItems: 'center', flexDirection: 'column'}}>
-                <SoundBox isCorrect={isCorrect} birdIdObject={birdIdObject}
-                          isPlaying={isPlaying} setIsPlaying={setIsPlaying}
+                <SoundBox isCorrect={isCorrect} isPlaying={isPlaying} setIsPlaying={setIsPlaying}
                           birdSound={birdSound} stop={stop} next={next}
                 />
                 {showAnswer

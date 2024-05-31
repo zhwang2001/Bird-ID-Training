@@ -1,5 +1,5 @@
 import {Box} from '@mui/material'
-import {birdIdObjectType} from '../App.tsx'
+import {birdIdObjectType} from "../birdTypes/birdTypes.ts";
 import {Dispatch, SetStateAction} from 'react'
 
 interface ImageBoxProps {

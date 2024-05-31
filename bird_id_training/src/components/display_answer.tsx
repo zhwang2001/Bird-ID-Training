@@ -1,7 +1,8 @@
 import {IconButton, Typography} from "@mui/material";
 import KeyboardDoubleArrowRightIcon from "@mui/icons-material/KeyboardDoubleArrowRight";
 import React from 'react'
-import {useEffect, useRef} from "react";
+import {useEffect} from "react";
+import {displayAnswerProps} from "../birdTypes/birdTypes.ts";
 
 /**
  * Displays the bird's common and scientific name, as well as a button to cycle to the next bird
@@ -10,8 +11,7 @@ import {useEffect, useRef} from "react";
  * @param setIsPlaying
  * @constructor
  */
-export default function DisplayAnswer({birdIdObject, handleNextBird}) {
-
+export default function DisplayAnswer({birdIdObject, handleNextBird}: displayAnswerProps) {
 
     const handleEnterPress = (e: React.KeyboardEvent<HTMLButtonElement>) => {
         //Evaluate expression on enter press and modify error state
